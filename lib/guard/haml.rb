@@ -35,9 +35,10 @@ module Guard
     def run_on_changes(paths)
       paths.each do |file|
         output_files = get_output(file)
-        compiled_haml = compile_haml(file)
         output_files.each do |output_file|
-          FileUtils.mkdir_p File.dirname(output_file)
+          dir = File.dirname(output_file)
+          FileUtils.mkdir_p dir
+          compiled_haml = compile_haml dir, file
           File.open(output_file, 'w') { |f| f.write(compiled_haml) }
         end
         message = "Successfully compiled haml to html!\n"
@@ -50,9 +51,14 @@ module Guard
 
     private
 
-    def compile_haml file
+    def replace_keywords dir, content
+      content.gsub /HAML_NAMESPACE/, dir
+    end
+
+    def compile_haml dir, file
       begin
         content = File.new(file).read
+        content = replace_keywords dir, content
         engine  = ::Haml::Engine.new(content, (@options[:haml_options] || {}))
         engine.render
       rescue StandardError => error

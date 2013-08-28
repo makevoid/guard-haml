@@ -3,6 +3,29 @@
 
 Watches HAML files, compiles them to HTML on change.
 
+
+## github.com/makevoid remote
+
+here is my fork, 0.5.1/makevoid adds a new feature: keyword replacement in source files
+
+this can be really handy if you want to generate different vesions based on the same haml template, very good for static sites that have similar sections or want to support translations
+
+
+example with bi-lingual template generation:
+
+Guardfile
+
+      guard :haml, input: ".", output: [".", "en"] do
+        watch %r{.+\.haml}
+      end
+
+page.haml
+
+      lang = "HAML_NAMESPACE"
+      - def
+
+
+
 ## Install
 
 Please be sure to have [Guard](https://github.com/guard/guard) installed before continuing.

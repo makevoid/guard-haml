@@ -1,5 +1,10 @@
 ## git master
 
+
+## 0.5.1 - github.com/makevoid - July 6, 2013
+
+* Add support for keyword replacement in source files for namespaced output dirs. ([@makevoid][])
+
 ### Bug fix
 
 * Fix conflict with `guard-bundler`. ([@onemanstartup][])
